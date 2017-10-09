@@ -80,7 +80,7 @@ public class Storage {
         } catch (Exception e) {
             Timber.e(e, "Error opening collection; closing database");
             db.close();
-            throw e;
+            return null;
         }
     }
 
