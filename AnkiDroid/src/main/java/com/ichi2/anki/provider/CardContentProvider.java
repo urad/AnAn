@@ -394,7 +394,10 @@ public class CardContentProvider extends ContentProvider {
                 String name = col.getDecks().name(id);
                 String[] columns = ((projection != null) ? projection : FlashCardsContract.Deck.DEFAULT_PROJECTION);
                 MatrixCursor rv = new MatrixCursor(columns, 1);
-                JSONArray counts = new JSONArray(Arrays.asList(col.getSched().counts()));
+                JSONArray counts = new JSONArray();
+				counts.put(col.getSched().counts()[0]);
+				counts.put(col.getSched().counts()[1]);
+				counts.put(col.getSched().counts()[2]);
                 addDeckToCursor(id, name, counts,rv, col, columns);
                 return rv;
             }
