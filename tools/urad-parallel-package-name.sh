@@ -3,7 +3,7 @@
 # Written by Tim Rae 18-11-2015
 
 # Input arguments are packageId and app name
-NEW_ID=$1		# e.g. com.ichi2.anki.a
+NEW_ID=$1		# e.g. com.ichi2a.anki
 NEW_NAME=$2		# e.g. AnkiDroid.A
 
 ROOT="AnkiDroid/src/main/"
@@ -27,11 +27,17 @@ echo done
 sleep 1
 
 echo  -n Changing Manifest
+sed -i -e "s/$OLD_ID/$NEW_ID/g" $ROOT$MANIFEST
 sed -i -e "s/android:authorities=\"$OLD_ID/android:authorities=\"$NEW_ID/g" $ROOT$MANIFEST
 sed -i -e "s/permission android:name=\"$OLD_ID.permission/permission android:name=\"$NEW_ID.permission/g" $ROOT$MANIFEST
 echo done
 sleep 1
 
+
+find $ROOT -type f -exec sed -i -e "s/$OLD_ID/$NEW_ID/g" {} \;
+
+
 echo -n Changing android:targetPackage value in all xml files
+
 find $ROOT/res/xml -type f -exec sed -i -e "s/android:targetPackage=\"$OLD_ID\"/android:targetPackage=\"$NEW_ID\"/g"  {} \;
 echo done
